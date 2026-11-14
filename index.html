@@ -15,106 +15,355 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>
+  /* set language and theme before first paint */
+  (function () {
+    var r = document.documentElement, lang = null, theme = null;
+    try { lang = localStorage.getItem('lang'); theme = localStorage.getItem('theme'); } catch (e) {}
+    if (lang !== 'fr' && lang !== 'en') lang = (navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+    r.setAttribute('data-lang', lang); r.setAttribute('lang', lang);
+    if (theme === 'light' || theme === 'dark') r.setAttribute('data-theme', theme);
+  })();
+</script>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#about">
-      <img src="assets/photo.jpg" alt="" width="30" height="30">
-      <span>Yacine Daher</span>
-    </a>
-    <nav class="links" aria-label="Sections">
-      <a href="#about"><span lang="en">About me</span><span lang="fr">À propos</span></a>
-      <a href="#projects"><span lang="en">Projects</span><span lang="fr">Projets</span></a>
-      <a href="#experience"><span lang="en">Experience</span><span lang="fr">Expérience</span></a>
-      <a href="#skills"><span lang="en">Skills</span><span lang="fr">Compétences</span></a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="lang" id="langBtn" type="button" aria-label="Switch language / Changer de langue">FR</button>
-      <a class="btn btn-accent btn-sm" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener">
-        <span lang="en">Resume</span><span lang="fr">CV</span>
-      </a>
-    </div>
+<!-- icons -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+</svg>
+
+<!-- top bar (mobile and tablet) -->
+<header class="navbar">
+  <a class="site-title" href="#about"><img src="assets/photo.jpg" alt="" width="28" height="28"><span>Yacine Daher</span></a>
+  <div class="navbar-tools">
+    <button class="icon-button lang-toggle" type="button" aria-label="Switch language / Changer de langue"></button>
+    <button class="icon-button theme-toggle" type="button" aria-label="Switch theme"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
+    <button class="icon-button menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><svg class="icon i-menu"><use href="#i-menu"/></svg><svg class="icon i-close"><use href="#i-close"/></svg></button>
   </div>
 </header>
+<nav class="mobile-menu" aria-label="Sections">
+  <a class="nav-link" href="#about"><svg class="icon"><use href="#i-user"/></svg><span lang="en">About me</span><span lang="fr">À propos</span></a>
+  <a class="nav-link" href="#projects"><svg class="icon"><use href="#i-folder"/></svg><span lang="en">Projects</span><span lang="fr">Projets</span></a>
+  <a class="nav-link" href="#experience"><svg class="icon"><use href="#i-briefcase"/></svg><span lang="en">Experience</span><span lang="fr">Expérience</span></a>
+  <a class="nav-link" href="#skills"><svg class="icon"><use href="#i-code"/></svg><span lang="en">Skills</span><span lang="fr">Compétences</span></a>
+  <a class="nav-link" href="#contact"><svg class="icon"><use href="#i-mail"/></svg>Contact</a>
+  <a class="button primary block" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-download"/></svg><span lang="en">Resume</span><span lang="fr">CV</span></a>
+</nav>
 
-<main>
+<div class="layout">
 
-  <!-- ───────── About me ───────── -->
-  <section id="about" class="about">
-    <div class="wrap">
-      <div class="about-top">
-        <div>
-          <p class="avail">
-            <span lang="en">Available for a 6-month internship from February 2027</span>
-            <span lang="fr">Disponible pour un PFE de 6 mois à partir de février 2027</span>
+  <!-- sidebar (desktop) -->
+  <aside class="sidebar">
+    <a class="site-title" href="#about"><img src="assets/photo.jpg" alt="" width="28" height="28"><span>Yacine Daher</span></a>
+    <nav class="sidebar-nav" aria-label="Sections">
+      <a class="nav-link" href="#about"><svg class="icon"><use href="#i-user"/></svg><span lang="en">About me</span><span lang="fr">À propos</span></a>
+      <a class="nav-link" href="#projects"><svg class="icon"><use href="#i-folder"/></svg><span lang="en">Projects</span><span lang="fr">Projets</span></a>
+      <a class="nav-link" href="#experience"><svg class="icon"><use href="#i-briefcase"/></svg><span lang="en">Experience</span><span lang="fr">Expérience</span></a>
+      <a class="nav-link" href="#skills"><svg class="icon"><use href="#i-code"/></svg><span lang="en">Skills</span><span lang="fr">Compétences</span></a>
+      <a class="nav-link" href="#contact"><svg class="icon"><use href="#i-mail"/></svg>Contact</a>
+    </nav>
+    <div class="sidebar-cta">
+      <a class="button primary block" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-download"/></svg><span lang="en">Resume</span><span lang="fr">CV</span></a>
+    </div>
+    <div class="sidebar-bottom">
+      <div>
+        <a class="icon-button" href="mailto:yacine.daher4@gmail.com" aria-label="E-mail"><svg class="icon"><use href="#i-mail"/></svg></a>
+        <a class="icon-button" href="https://github.com/YacineDaher" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+        <a class="icon-button" href="https://linkedin.com/in/mohammed-yacine-daher" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+      </div>
+      <div>
+        <button class="icon-button lang-toggle" type="button" aria-label="Switch language / Changer de langue"></button>
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch theme"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <main class="content">
+
+      <!-- ───────── About me ───────── -->
+      <section id="about">
+        <div class="hero">
+          <div>
+            <div class="avail">
+              <span lang="en">Available for a 6-month internship from February 2027</span>
+              <span lang="fr">Disponible pour un PFE de 6 mois à partir de février 2027</span>
+            </div>
+            <h1><span lang="en">Hi, I'm Yacine.</span><span lang="fr">Bonjour, je suis Yacine.</span></h1>
+            <p class="tagline">
+              <span lang="en">Engineering student and Java / Spring Boot developer, based in Casablanca.</span>
+              <span lang="fr">Élève ingénieur et développeur Java / Spring Boot, basé à Casablanca.</span>
+            </p>
+          </div>
+          <img class="hero-photo" src="assets/photo.jpg" alt="Mohammed Yacine Daher" width="168" height="168">
+        </div>
+
+        <div class="prose">
+          <p>
+            <span lang="en">I'm a final-year student at EMSI Casablanca, specialising in software development and cloud. I build back-end applications with Java and Spring Boot, and I have a growing interest in DevOps.</span>
+            <span lang="fr">Je suis en 5ᵉ année à l'EMSI Casablanca, spécialisé en développement logiciel et Cloud. Je développe des applications back-end avec Java et Spring Boot, et je m'intéresse de près au DevOps.</span>
           </p>
-          <h1><span lang="en">Hi, I'm Yacine.</span><span lang="fr">Bonjour, je suis Yacine.</span></h1>
-          <p class="lead">
-            <span lang="en">Engineering student and Java / Spring Boot developer, based in Casablanca.</span>
-            <span lang="fr">Élève ingénieur et développeur Java / Spring Boot, basé à Casablanca.</span>
+          <p>
+            <span lang="en">My last internship, at ONDA, was my first real team project: gathering requirements with the people who would use the system, working in Scrum sprints, reviewing code on GitHub, and shipping a Spring Boot API with tests and a CI pipeline.</span>
+            <span lang="fr">Mon dernier stage, à l'ONDA, a été mon premier vrai projet d'équipe : recueillir les besoins auprès des futurs utilisateurs, travailler en sprints Scrum, relire du code sur GitHub et livrer une API Spring Boot avec des tests et un pipeline CI.</span>
+          </p>
+          <p>
+            <span lang="en">I'm now looking for an end-of-studies internship (PFE) in back-end or full-stack Java development, on a team where I can work on a real product and learn from experienced engineers.</span>
+            <span lang="fr">Je cherche maintenant un stage de fin d'études (PFE) en développement back-end ou full stack Java, dans une équipe où je pourrai travailler sur un vrai produit et apprendre auprès d'ingénieurs expérimentés.</span>
           </p>
         </div>
-        <img class="photo" src="assets/photo.jpg" alt="Mohammed Yacine Daher" width="176" height="176">
-      </div>
 
-      <div class="prose">
-        <p>
-          <span lang="en">I'm a final-year student at EMSI Casablanca, specialising in software development and cloud. I build back-end applications with Java and Spring Boot, and I have a growing interest in DevOps.</span>
-          <span lang="fr">Je suis en 5ᵉ année à l'EMSI Casablanca, spécialisé en développement logiciel et Cloud. Je développe des applications back-end avec Java et Spring Boot, et je m'intéresse de près au DevOps.</span>
-        </p>
-        <p>
-          <span lang="en">My last internship, at ONDA, was my first real team project: gathering requirements with the people who would use the system, working in Scrum sprints, reviewing code on GitHub, and shipping a Spring Boot API with tests and a CI pipeline.</span>
-          <span lang="fr">Mon dernier stage, à l'ONDA, a été mon premier vrai projet d'équipe : recueillir les besoins auprès des futurs utilisateurs, travailler en sprints Scrum, relire du code sur GitHub et livrer une API Spring Boot avec des tests et un pipeline CI.</span>
-        </p>
-        <p>
-          <span lang="en">I'm now looking for an end-of-studies internship (PFE) in back-end or full-stack Java development, on a team where I can work on a real product and learn from experienced engineers.</span>
-          <span lang="fr">Je cherche maintenant un stage de fin d'études (PFE) en développement back-end ou full stack Java, dans une équipe où je pourrai travailler sur un vrai produit et apprendre auprès d'ingénieurs expérimentés.</span>
-        </p>
-      </div>
+        <p class="eyebrow path-title"><span lang="en">My path so far</span><span lang="fr">Mon parcours</span></p>
+        <ul class="timeline">
+          <li><span class="dates">2021 – 2022</span><span><span lang="en">Faculty of Science and Technology, Béni Mellal.</span><span lang="fr">Faculté des Sciences et Techniques, Béni Mellal.</span></span></li>
+          <li><span class="dates">2022 – 2024</span><span><span lang="en">Preparatory years at EMSI Casablanca.</span><span lang="fr">Années préparatoires à l'EMSI Casablanca.</span></span></li>
+          <li><span class="dates">2024 – 2027</span><span><span lang="en">Engineering degree in Computer Science and Networks at EMSI Casablanca. Track: information systems, software and cloud development.</span><span lang="fr">Cycle d'ingénieur en Informatique et Réseaux à l'EMSI Casablanca. Option : développement des systèmes d'information, logiciels et Cloud.</span></span></li>
+          <li><span class="dates"><span lang="en">Feb 2027</span><span lang="fr">Févr. 2027</span></span><span class="next"><span lang="en">Next step: a 6-month end-of-studies internship.</span><span lang="fr">Prochaine étape : un stage de fin d'études de 6 mois.</span></span></li>
+        </ul>
 
-      <div class="actions">
-        <a class="btn btn-accent" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
-          <span lang="en">Download resume</span><span lang="fr">Télécharger mon CV</span>
-        </a>
-        <a class="btn" href="https://github.com/YacineDaher" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="https://linkedin.com/in/mohammed-yacine-daher" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
+        <div class="hero-buttons">
+          <a class="button primary" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-download"/></svg><span lang="en">Download resume</span><span lang="fr">Télécharger mon CV</span></a>
+          <a class="button secondary" href="https://github.com/YacineDaher" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+          <a class="button secondary" href="https://linkedin.com/in/mohammed-yacine-daher" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        </div>
+      </section>
 
-      <dl class="facts">
-        <div><dt><span lang="en">Location</span><span lang="fr">Lieu</span></dt><dd><span lang="en">Casablanca, Morocco</span><span lang="fr">Casablanca, Maroc</span></dd></div>
-        <div><dt><span lang="en">School</span><span lang="fr">École</span></dt><dd><span lang="en">EMSI, final year</span><span lang="fr">EMSI, 5ᵉ année</span></dd></div>
-        <div><dt><span lang="en">Focus</span><span lang="fr">Spécialité</span></dt><dd>Java · Spring Boot</dd></div>
-        <div><dt><span lang="en">Languages</span><span lang="fr">Langues</span></dt><dd><span lang="en">Arabic, French, English</span><span lang="fr">Arabe, français, anglais</span></dd></div>
-      </dl>
-    </div>
-  </section>
+      <!-- ───────── Projects ───────── -->
+      <section id="projects">
+        <header class="heading">
+          <div class="heading-row">
+            <h2><span lang="en">Projects</span><span lang="fr">Projets</span></h2>
+            <a class="button secondary small" href="https://github.com/YacineDaher?tab=repositories" target="_blank" rel="noopener"><span lang="en">All on GitHub</span><span lang="fr">Tout sur GitHub</span></a>
+          </div>
+          <p class="description">
+            <span lang="en">What I've built during my internships and studies.</span>
+            <span lang="fr">Ce que j'ai construit en stage et pendant mes études.</span>
+          </p>
+        </header>
 
-</main>
+        <div class="cards">
 
-<script>
-  (function () {
-    var root = document.documentElement, btn = document.getElementById('langBtn');
-    function apply(lang) {
-      root.setAttribute('data-lang', lang);
-      root.setAttribute('lang', lang);
-      btn.textContent = lang === 'fr' ? 'EN' : 'FR';
-    }
-    var lang = null;
-    try { lang = localStorage.getItem('lang'); } catch (e) {}
-    if (lang !== 'fr' && lang !== 'en') {
-      lang = (navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
-    }
-    apply(lang);
-    btn.addEventListener('click', function () {
-      var next = root.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
-      apply(next);
-      try { localStorage.setItem('lang', next); } catch (e) {}
-    });
-  })();
-</script>
+          <article class="card">
+            <span class="card-meta"><span lang="en">2026 · ONDA internship · Team project</span><span lang="fr">2026 · Stage ONDA · Projet d'équipe</span></span>
+            <div class="card-head">
+              <h3><span lang="en">ResiAIAC — student residence management</span><span lang="fr">ResiAIAC — gestion d'une résidence universitaire</span></h3>
+              <div class="card-links"><a class="text-link" href="https://github.com/YacineDaher/ResiAIAC" target="_blank" rel="noopener">Source</a></div>
+            </div>
+            <p>
+              <span lang="en">A platform that replaces the paper registers and Excel files used to manage the student residence of the Mohammed VI International Academy of Civil Aviation.</span>
+              <span lang="fr">Plateforme qui remplace les cahiers papier et les fichiers Excel utilisés pour gérer la résidence des étudiants de l'Académie Internationale Mohammed VI de l'Aviation Civile.</span>
+            </p>
+            <ul lang="en">
+              <li><strong>4 business modules</strong>: admissions and document upload, room booking, maintenance requests, check-in/check-out inspections.</li>
+              <li><strong>REST API</strong> with Spring Boot and Spring Data JPA, <strong>Redis</strong> caching, PostgreSQL and S3-compatible file storage.</li>
+              <li><strong>Role-based access with 4 roles</strong> using Keycloak, Spring Security and JWT, plus e-mail notifications.</li>
+              <li>JUnit 5 and Mockito tests, Docker containers, CI/CD with GitHub Actions and deployment on Kubernetes (k3s).</li>
+            </ul>
+            <ul lang="fr">
+              <li><strong>4 modules métier</strong> : admission et dépôt de documents, réservation de chambres, réclamations de maintenance, états des lieux.</li>
+              <li><strong>API REST</strong> avec Spring Boot et Spring Data JPA, cache <strong>Redis</strong>, base PostgreSQL et stockage de fichiers compatible S3.</li>
+              <li><strong>Contrôle d'accès à 4 rôles</strong> avec Keycloak, Spring Security et JWT, et notifications par e-mail.</li>
+              <li>Tests JUnit 5 et Mockito, conteneurs Docker, CI/CD avec GitHub Actions et déploiement sur Kubernetes (k3s).</li>
+            </ul>
+            <div class="diagram" role="img" aria-label="Architecture: Angular, Nginx, Spring Boot API, Keycloak, S3 storage, PostgreSQL, Redis">
+              <svg viewBox="0 0 640 196" xmlns="http://www.w3.org/2000/svg">
+                <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs>
+                <path class="line" d="M118 98H160" marker-end="url(#arr)"/>
+                <path class="line" d="M250 98H296" marker-end="url(#arr)"/>
+                <path class="line" d="M272 98V34H296" marker-end="url(#arr)"/>
+                <path class="line" d="M272 98V162H296" marker-end="url(#arr)"/>
+                <path class="line" d="M450 98H474V66H496" marker-end="url(#arr)"/>
+                <path class="line" d="M474 98V130H496" marker-end="url(#arr)"/>
+                <rect class="box" x="18" y="76" width="100" height="44" rx="8"/><text x="68" y="98">Angular</text>
+                <rect class="box" x="162" y="76" width="88" height="44" rx="8"/><text x="206" y="98">Nginx</text>
+                <rect class="box" x="298" y="12" width="152" height="44" rx="8"/><text x="374" y="27">Keycloak</text><text class="small" x="374" y="43">OAuth2 · JWT</text>
+                <rect class="box main" x="298" y="76" width="152" height="44" rx="8"/><text x="374" y="91">Spring Boot API</text><text class="small" x="374" y="107">REST · JPA</text>
+                <rect class="box" x="298" y="140" width="152" height="44" rx="8"/><text x="374" y="155">SeaweedFS</text><text class="small" x="374" y="171">S3 · documents</text>
+                <rect class="box" x="498" y="44" width="124" height="44" rx="8"/><text x="560" y="66">PostgreSQL</text>
+                <rect class="box" x="498" y="108" width="124" height="44" rx="8"/><text x="560" y="123">Redis</text><text class="small" x="560" y="139">cache</text>
+              </svg>
+            </div>
+            <div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Data JPA</span><span class="chip">Spring Security</span><span class="chip">Keycloak</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Angular</span><span class="chip">Docker</span><span class="chip">Kubernetes (k3s)</span><span class="chip">GitHub Actions</span></div>
+          </article>
+
+          <article class="card">
+            <span class="card-meta"><span lang="en">Academic project · Team</span><span lang="fr">Projet académique · Équipe</span></span>
+            <div class="card-head">
+              <h3><span lang="en">SubTracker — subscription tracker</span><span lang="fr">SubTracker — suivi d'abonnements</span></h3>
+              <div class="card-links"><a class="text-link" href="https://github.com/YacineDaher/subtracker" target="_blank" rel="noopener">Source</a></div>
+            </div>
+            <p>
+              <span lang="en">A desktop app to keep track of subscriptions (streaming, software, gym…) and see where the money goes each month.</span>
+              <span lang="fr">Application desktop pour suivre ses abonnements (streaming, logiciels, salle de sport…) et savoir où part son argent chaque mois.</span>
+            </p>
+            <ul lang="en">
+              <li>Individual and <strong>family accounts</strong>, dashboard and spending analytics.</li>
+              <li><strong>E-mail reminders</strong> (SMTP) three days before each renewal.</li>
+              <li>Layered <strong>MVC / DAO</strong> architecture, BCrypt password hashing, HikariCP connection pool.</li>
+            </ul>
+            <ul lang="fr">
+              <li>Comptes individuels et <strong>comptes familiaux</strong>, tableau de bord et statistiques de dépenses.</li>
+              <li><strong>Rappels par e-mail</strong> (SMTP) trois jours avant chaque renouvellement.</li>
+              <li>Architecture en couches <strong>MVC / DAO</strong>, mots de passe hachés avec BCrypt, pool de connexions HikariCP.</li>
+            </ul>
+            <div class="shots">
+              <img src="assets/subtracker-dashboard.jpg" alt="SubTracker — dashboard" loading="lazy" width="1200" height="657">
+              <img src="assets/subtracker-analytics.jpg" alt="SubTracker — analytics" loading="lazy" width="1200" height="633">
+            </div>
+            <div class="chips"><span class="chip">Java 21</span><span class="chip">JavaFX</span><span class="chip">JDBC</span><span class="chip">SQL Server</span><span class="chip">Maven</span></div>
+          </article>
+
+          <article class="card">
+            <span class="card-meta"><span lang="en">Academic project</span><span lang="fr">Projet académique</span></span>
+            <div class="card-head">
+              <h3><span lang="en">WearZone — online store and back office</span><span lang="fr">WearZone — boutique en ligne et back-office</span></h3>
+              <div class="card-links"><a class="text-link" href="https://github.com/YacineDaher/WearZone" target="_blank" rel="noopener">Source</a></div>
+            </div>
+            <p>
+              <span lang="en">An e-commerce site for a clothing store, with a customer storefront and an admin area.</span>
+              <span lang="fr">Site e-commerce pour une boutique de vêtements, avec un espace client et un espace d'administration.</span>
+            </p>
+            <ul lang="en">
+              <li>Catalog with filters and search, cart, wishlist, checkout and order history.</li>
+              <li><strong>Back office</strong>: sales dashboard, product, order and customer management.</li>
+              <li>REST API for the cart, <strong>role-based authentication</strong> with ASP.NET Identity.</li>
+            </ul>
+            <ul lang="fr">
+              <li>Catalogue avec filtres et recherche, panier, liste de souhaits, commande et historique des achats.</li>
+              <li><strong>Back-office</strong> : tableau de bord des ventes, gestion des produits, des commandes et des clients.</li>
+              <li>API REST pour le panier, <strong>authentification par rôles</strong> avec ASP.NET Identity.</li>
+            </ul>
+            <div class="shots">
+              <img src="assets/wearzone-home.jpg" alt="WearZone — storefront" loading="lazy" width="1200" height="665">
+              <img src="assets/wearzone-admin.jpg" alt="WearZone — admin dashboard" loading="lazy" width="1200" height="666">
+            </div>
+            <div class="chips"><span class="chip">C#</span><span class="chip">ASP.NET Core 8</span><span class="chip">EF Core 8</span><span class="chip">SQL Server</span></div>
+          </article>
+
+          <article class="card">
+            <span class="card-meta"><span lang="en">Academic project</span><span lang="fr">Projet académique</span></span>
+            <div class="card-head">
+              <h3><span lang="en">FacturaPro — invoicing</span><span lang="fr">FacturaPro — gestion de facturation</span></h3>
+            </div>
+            <p>
+              <span lang="en">A web app to manage clients and the full life of an invoice, from creation to approval.</span>
+              <span lang="fr">Application web pour gérer ses clients et tout le cycle d'une facture, de la création à la validation.</span>
+            </p>
+            <ul lang="en">
+              <li>Automatic VAT and discount calculation, <strong>PDF generation</strong> with signature.</li>
+              <li>Approval workflow: an administrator accepts or rejects each invoice.</li>
+              <li><strong>Serverless</strong> architecture, roles and access secured with Firestore rules.</li>
+            </ul>
+            <ul lang="fr">
+              <li>Calcul automatique de la TVA et des remises, <strong>génération de PDF</strong> avec signature.</li>
+              <li>Circuit de validation : un administrateur accepte ou rejette chaque facture.</li>
+              <li>Architecture <strong>serverless</strong>, rôles et accès sécurisés par les règles Firestore.</li>
+            </ul>
+            <div class="chips"><span class="chip">React</span><span class="chip">Firebase Authentication</span><span class="chip">Cloud Firestore</span><span class="chip">Material UI</span></div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ───────── Experience ───────── -->
+      <section id="experience">
+        <header class="heading">
+          <div class="heading-row"><h2><span lang="en">Experience</span><span lang="fr">Expérience</span></h2></div>
+          <p class="description"><span lang="en">Two development internships.</span><span lang="fr">Deux stages en développement.</span></p>
+        </header>
+
+        <ul class="rows">
+          <li>
+            <span class="dates"><span lang="en">Jul – Aug 2026</span><span lang="fr">Juil. – août 2026</span></span>
+            <div>
+              <h3><span lang="en">Full-stack developer intern (Java / Spring Boot)</span><span lang="fr">Stagiaire développeur full stack (Java / Spring Boot)</span></h3>
+              <div class="org">ONDA — Office National des Aéroports · Casablanca</div>
+              <ul lang="en">
+                <li>Designed and developed the <a class="text-link" href="#projects">ResiAIAC</a> platform, from requirements gathering to deployment.</li>
+                <li>Worked in an <strong>Agile Scrum</strong> team: Git branches, pull requests, integrating contributions and coordinating tasks.</li>
+              </ul>
+              <ul lang="fr">
+                <li>Conception et développement de la plateforme <a class="text-link" href="#projects">ResiAIAC</a>, du recueil des besoins au déploiement.</li>
+                <li>Travail en équipe en <strong>Agile Scrum</strong> : branches Git, pull requests, intégration des contributions et coordination des tâches.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="dates"><span lang="en">Jul – Aug 2025</span><span lang="fr">Juil. – août 2025</span></span>
+            <div>
+              <h3><span lang="en">Full-stack developer intern</span><span lang="fr">Stagiaire développeur full stack</span></h3>
+              <div class="org">PSB Maroc · Casablanca</div>
+              <p>
+                <span lang="en">Built a web platform where customers discover the company's services, place orders and get in touch. React.js, Node.js, MongoDB.</span>
+                <span lang="fr">Développement d'une plateforme web où les clients découvrent les services de l'entreprise, passent des commandes et prennent contact. React.js, Node.js, MongoDB.</span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ───────── Skills ───────── -->
+      <section id="skills">
+        <header class="heading">
+          <div class="heading-row"><h2><span lang="en">Skills</span><span lang="fr">Compétences</span></h2></div>
+          <p class="description"><span lang="en">The tools I work with.</span><span lang="fr">Les outils avec lesquels je travaille.</span></p>
+        </header>
+
+        <ul class="rows skills">
+          <li><b><span lang="en">Languages &amp; frameworks</span><span lang="fr">Langages et frameworks</span></b><span>Java, Spring Boot, JavaScript, Angular, React, Python (Django), .NET, C++</span></li>
+          <li><b><span lang="en">Databases</span><span lang="fr">Bases de données</span></b><span>PostgreSQL, MongoDB, Neo4j, Redis, Firebase, Oracle Database, SQL Server</span></li>
+          <li><b>Cloud &amp; DevOps</b><span>Docker, Kubernetes (k3s), GitHub Actions, CI/CD, Microsoft Azure, Azure DevOps</span></li>
+          <li><b><span lang="en">Design &amp; methods</span><span lang="fr">Conception et méthodes</span></b><span><span lang="en">REST APIs, UML, MVC, microservices, design patterns, Agile (Scrum, Kanban)</span><span lang="fr">API REST, UML, MVC, microservices, design patterns, Agile (Scrum, Kanban)</span></span></li>
+          <li><b><span lang="en">Tools &amp; testing</span><span lang="fr">Outils et tests</span></b><span>Maven, Git, GitHub, JUnit 5, Mockito, Postman</span></li>
+          <li><b><span lang="en">Languages</span><span lang="fr">Langues</span></b><span><span lang="en">Arabic (native), French (professional), English (intermediate)</span><span lang="fr">Arabe (natif), français (professionnel), anglais (intermédiaire)</span></span></li>
+        </ul>
+
+        <h3 class="subheading">Certifications</h3>
+        <ul class="plain-list">
+          <li><span lang="en">Object-oriented programming in C++</span><span lang="fr">Programmation orientée objet en C++</span> (EPFL)</li>
+          <li>React Native (Meta)</li>
+          <li>Using Python to Access Web Data (University of Michigan)</li>
+          <li>Agile Project Management (Google)</li>
+          <li>Software Engineering and Project Management</li>
+        </ul>
+      </section>
+
+      <!-- ───────── Contact ───────── -->
+      <section id="contact">
+        <header class="heading">
+          <div class="heading-row"><h2>Contact</h2></div>
+          <p class="description">
+            <span lang="en">I'm looking for a 6-month end-of-studies internship starting in February 2027, in back-end or full-stack Java development. If my profile is a fit, drop me a line. I reply quickly.</span>
+            <span lang="fr">Je cherche un stage de fin d'études de 6 mois à partir de février 2027, en développement back-end ou full stack Java. Si mon profil vous intéresse, écrivez-moi : je réponds rapidement.</span>
+          </p>
+        </header>
+
+        <div class="contact-cards">
+          <a class="contact-card" href="mailto:yacine.daher4@gmail.com"><b><svg class="icon"><use href="#i-mail"/></svg>E-mail</b><span>yacine.daher4@gmail.com</span></a>
+          <a class="contact-card" href="https://linkedin.com/in/mohammed-yacine-daher" target="_blank" rel="noopener"><b><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</b><span>in/mohammed-yacine-daher</span></a>
+          <a class="contact-card" href="https://github.com/YacineDaher" target="_blank" rel="noopener"><b><svg class="icon"><use href="#i-github"/></svg>GitHub</b><span>YacineDaher</span></a>
+        </div>
+
+        <a class="button primary" href="assets/CV_Mohammed_Yacine_Daher.pdf" target="_blank" rel="noopener"><svg class="icon"><use href="#i-download"/></svg><span lang="en">Download resume</span><span lang="fr">Télécharger mon CV</span></a>
+      </section>
+
+    </main>
+    <footer class="footer">© 2026 Mohammed Yacine Daher</footer>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
