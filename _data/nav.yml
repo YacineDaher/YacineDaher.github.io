@@ -1,0 +1,24 @@
+- url: /about/
+  icon: "👋"
+  en: About me
+  fr: À propos
+- url: /projects/
+  icon: "📁"
+  en: Projects
+  fr: Projets
+- url: /experience/
+  icon: "💼"
+  en: Experience
+  fr: Expérience
+- url: /skills/
+  icon: "🛠️"
+  en: Skills
+  fr: Compétences
+- url: /contact/
+  icon: "✉️"
+  en: Contact
+  fr: Contact
+- url: /blog/
+  icon: "📝"
+  en: Blog
+  fr: Blog

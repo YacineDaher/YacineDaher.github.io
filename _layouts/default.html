@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-theme="dark" data-accent="yellow">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+<meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ '/assets/photo.jpg' | absolute_url }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23202025'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='30' fill='%23fede91'>YD</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..700&family=Google+Sans+Flex:wght@400..700&family=Google+Sans+Code:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<script>
+  /* apply saved language, theme and accent colour before the first paint */
+  (function () {
+    var r = document.documentElement, get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    var lang = get('lang'), theme = get('theme'), accent = get('accent');
+    if (lang !== 'fr' && lang !== 'en') lang = (navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+    if (theme !== 'light' && theme !== 'dark') theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    r.setAttribute('data-lang', lang); r.setAttribute('lang', lang);
+    r.setAttribute('data-theme', theme);
+    if (accent) r.setAttribute('data-accent', accent);
+  })();
+</script>
+</head>
+<body>
+{% include icons.html %}
+
+<!-- top bar: phones and tablets -->
+<header class="navbar">
+  <a class="site-title" href="{{ '/' | relative_url }}"><span class="site-logo" aria-hidden="true">YD</span><span class="site-name">yacinedaher</span></a>
+  <div class="navbar-right">
+    {% include tools.html %}
+    <button class="icon-button menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><svg class="icon i-menu"><use href="#i-menu"/></svg><svg class="icon i-close"><use href="#i-close"/></svg></button>
+  </div>
+</header>
+<nav class="mobile-menu nav-links" aria-label="Pages">
+  {% include nav-links.html %}
+  <div class="mobile-menu-foot">
+    <a href="{{ site.resume | relative_url }}" target="_blank" rel="noopener"><span lang="en">Resume</span><span lang="fr">CV</span></a>
+    <span class="divider"></span>
+    <button class="lang-toggle" type="button"></button>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- sidebar: desktop -->
+  <aside class="sidebar">
+    <section class="sidebar-section sidebar-title">
+      <a class="site-title" href="{{ '/' | relative_url }}"><span class="site-logo" aria-hidden="true">YD</span><span class="site-name">yacinedaher</span></a>
+      {% include tools.html %}
+    </section>
+
+    <section class="sidebar-section sidebar-blurb">
+      <p lang="en">I'm <a href="{{ '/about/' | relative_url }}">Yacine</a>, engineering student and Java / Spring Boot developer in Casablanca. ☕</p>
+      <p lang="fr">Je suis <a href="{{ '/about/' | relative_url }}">Yacine</a>, élève ingénieur et développeur Java / Spring Boot à Casablanca. ☕</p>
+    </section>
+
+    <section class="sidebar-section">
+      <nav class="nav-links" aria-label="Pages">
+        {% include nav-links.html %}
+      </nav>
+    </section>
+
+    <div class="sidebar-bottom">
+      <nav class="sidebar-social" aria-label="Contact">
+        <a href="mailto:{{ site.email }}" aria-label="E-mail" title="E-mail"><svg class="icon"><use href="#i-mail"/></svg></a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+      </nav>
+      <nav class="sidebar-sub-links">
+        <a href="{{ site.resume | relative_url }}" target="_blank" rel="noopener"><span lang="en">Resume</span><span lang="fr">CV</span></a>
+        <span class="divider"></span>
+        <a href="{{ site.github }}/YacineDaher.github.io" target="_blank" rel="noopener">Source</a>
+        <span class="divider"></span>
+        <button class="lang-toggle" type="button" aria-label="Switch language / Changer de langue"></button>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <main class="main-content">
+      {{ content }}
+    </main>
+
+    <footer class="footer">
+      <span>© {{ site.time | date: '%Y' }} Mohammed Yacine Daher</span>
+      <nav>
+        <a href="mailto:{{ site.email }}">E-mail</a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </footer>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+</body>
+</html>

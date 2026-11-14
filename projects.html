@@ -1,0 +1,28 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+description: Projects built by Mohammed Yacine Daher during internships and studies.
+---
+<header class="hero">
+  <h1><span class="hero-icon" aria-hidden="true">📁</span><span lang="en">Projects</span><span lang="fr">Projets</span></h1>
+  <p class="hero-description">
+    <span lang="en">What I've built during my internships and studies: a residence management platform, a desktop app, an online store and an invoicing tool.</span>
+    <span lang="fr">Ce que j'ai construit en stage et pendant mes études : une plateforme de gestion de résidence, une application desktop, une boutique en ligne et un outil de facturation.</span>
+  </p>
+</header>
+
+{% assign years = site.data.projects | group_by: "year" %}
+{% for year in years %}
+<section class="year">
+  <h2>
+    <span>{{ year.name }}</span>
+    <span class="chip"><span class="chip-highlight">{{ year.items | size }}</span>
+      {% if year.items.size == 1 %}<span lang="en">project</span><span lang="fr">projet</span>{% else %}<span lang="en">projects</span><span lang="fr">projets</span>{% endif %}
+    </span>
+  </h2>
+  <div class="posts">
+    {% for project in year.items %}{% include project-row.html project=project %}{% endfor %}
+  </div>
+</section>
+{% endfor %}

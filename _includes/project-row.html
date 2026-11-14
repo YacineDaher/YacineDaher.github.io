@@ -1,0 +1,10 @@
+{% assign p = include.project %}
+{% if p.url %}<a class="post" href="{{ p.url }}" target="_blank" rel="noopener">{% else %}<div class="post">{% endif %}
+  <div class="post-thumbnail" aria-hidden="true">{{ p.icon }}</div>
+  <div class="post-info">
+    <div class="post-title"><span lang="en">{{ p.title_en }}</span><span lang="fr">{{ p.title_fr }}</span></div>
+    <time><span lang="en">{{ p.when_en }}</span><span lang="fr">{{ p.when_fr }}</span></time>
+    <p class="post-description"><span lang="en">{{ p.desc_en }}</span><span lang="fr">{{ p.desc_fr }}</span></p>
+  </div>
+  <div class="post-tags">{% for tag in p.tags %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+{% if p.url %}</a>{% else %}</div>{% endif %}

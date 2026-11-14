@@ -1,0 +1,43 @@
+# One entry per project. Projects are listed newest first and grouped by "year".
+- year: 2026
+  icon: "🏠"
+  url: https://github.com/YacineDaher/ResiAIAC
+  title_en: ResiAIAC — student residence management
+  title_fr: ResiAIAC — gestion d'une résidence universitaire
+  when_en: Jul – Aug 2026 · ONDA internship · Team project
+  when_fr: Juil. – août 2026 · Stage ONDA · Projet d'équipe
+  desc_en: A platform that replaces the paper registers and Excel files used to manage the student residence of the Mohammed VI International Academy of Civil Aviation.
+  desc_fr: Plateforme qui remplace les cahiers papier et les fichiers Excel utilisés pour gérer la résidence des étudiants de l'Académie Internationale Mohammed VI de l'Aviation Civile.
+  tags: [spring-boot, postgresql, redis, keycloak, kubernetes]
+
+- year: 2025
+  icon: "💳"
+  url: https://github.com/YacineDaher/subtracker
+  title_en: SubTracker — subscription tracker
+  title_fr: SubTracker — suivi d'abonnements
+  when_en: Academic project · Team
+  when_fr: Projet académique · Équipe
+  desc_en: A desktop app to keep track of subscriptions (streaming, software, gym…) and see where the money goes each month.
+  desc_fr: Application desktop pour suivre ses abonnements (streaming, logiciels, salle de sport…) et savoir où part son argent chaque mois.
+  tags: [java, javafx, jdbc, sql-server]
+
+- year: 2025
+  icon: "🛍️"
+  url: https://github.com/YacineDaher/WearZone
+  title_en: WearZone — online store and back office
+  title_fr: WearZone — boutique en ligne et back-office
+  when_en: Academic project
+  when_fr: Projet académique
+  desc_en: An e-commerce site for a clothing store, with a customer storefront and an admin area.
+  desc_fr: Site e-commerce pour une boutique de vêtements, avec un espace client et un espace d'administration.
+  tags: [csharp, aspnet-core, ef-core, sql-server]
+
+- year: 2025
+  icon: "🧾"
+  title_en: FacturaPro — invoicing
+  title_fr: FacturaPro — gestion de facturation
+  when_en: Academic project
+  when_fr: Projet académique
+  desc_en: A web app to manage clients and the full life of an invoice, from creation to approval.
+  desc_fr: Application web pour gérer ses clients et tout le cycle d'une facture, de la création à la validation.
+  tags: [react, firebase, firestore, material-ui]

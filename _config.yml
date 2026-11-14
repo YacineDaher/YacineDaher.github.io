@@ -1,0 +1,15 @@
+title: Yacine Daher
+description: Engineering student at EMSI Casablanca and Java / Spring Boot back-end developer.
+url: https://yacinedaher.github.io
+baseurl: ""
+permalink: /blog/:title/
+markdown: kramdown
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+email: yacine.daher4@gmail.com
+github: https://github.com/YacineDaher
+linkedin: https://linkedin.com/in/mohammed-yacine-daher
+resume: /assets/CV_Mohammed_Yacine_Daher.pdf

@@ -1,0 +1,6 @@
+{% for item in site.data.nav %}
+<a href="{{ item.url | relative_url }}"{% if page.url == item.url or page.nav == item.url %} class="active"{% endif %}>
+  <span class="nav-icon" aria-hidden="true">{{ item.icon }}</span>
+  <span lang="en">{{ item.en }}</span><span lang="fr">{{ item.fr }}</span>
+</a>
+{% endfor %}
