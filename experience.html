@@ -1,0 +1,21 @@
+---
+layout: default
+title: Experience
+permalink: /experience/
+---
+<header class="hero">
+  <h1><span class="hero-icon" aria-hidden="true">💼</span><span lang="en">Experience</span><span lang="fr">Expérience</span></h1>
+  <p class="hero-description">
+    <span lang="en">Two development internships, one on a Java / Spring Boot platform and one on a JavaScript web application.</span>
+    <span lang="fr">Deux stages en développement : une plateforme Java / Spring Boot et une application web JavaScript.</span>
+  </p>
+</header>
+{% assign years = site.data.experience | group_by: "year" %}
+{% for year in years %}
+<section class="year">
+  <h2><span>{{ year.name }}</span></h2>
+  <div class="posts">
+    {% for item in year.items %}{% include project-row.html project=item %}{% endfor %}
+  </div>
+</section>
+{% endfor %}

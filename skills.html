@@ -1,0 +1,30 @@
+---
+layout: default
+title: Skills
+permalink: /skills/
+---
+<header class="hero">
+  <h1><span class="hero-icon" aria-hidden="true">🛠️</span><span lang="en">Skills</span><span lang="fr">Compétences</span></h1>
+  <p class="hero-description">
+    <span lang="en">The languages, frameworks and tools I work with.</span>
+    <span lang="fr">Les langages, frameworks et outils avec lesquels je travaille.</span>
+  </p>
+</header>
+{% for group in site.data.skills %}
+<div class="tile-group">
+  <h3><span lang="en">{{ group.en }}</span><span lang="fr">{{ group.fr }}</span></h3>
+  <div class="cards">
+    {% for item in group.items %}<div class="card"><span class="card-icon" aria-hidden="true">{{ item.icon }}</span><span>{{ item.name }}</span></div>{% endfor %}
+  </div>
+</div>
+{% endfor %}
+<div class="tile-group prose">
+  <h3>Certifications</h3>
+  <ul>
+    <li><span lang="en">Object-oriented programming in C++</span><span lang="fr">Programmation orientée objet en C++</span> (EPFL)</li>
+    <li>React Native (Meta)</li>
+    <li>Using Python to Access Web Data (University of Michigan)</li>
+    <li>Agile Project Management (Google)</li>
+    <li>Software Engineering and Project Management</li>
+  </ul>
+</div>

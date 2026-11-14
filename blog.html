@@ -1,0 +1,27 @@
+---
+layout: default
+title: Blog
+permalink: /blog/
+---
+<header class="hero">
+  <h1><span class="hero-icon" aria-hidden="true">📝</span>Blog</h1>
+  <p class="hero-description">
+    <span lang="en">Notes on what I'm learning and building.</span>
+    <span lang="fr">Des notes sur ce que j'apprends et ce que je construis.</span>
+  </p>
+</header>
+{% if site.posts.size == 0 %}
+<p class="empty"><span lang="en">No posts yet. The first one is on its way.</span><span lang="fr">Pas encore d'article. Le premier arrive bientôt.</span></p>
+{% else %}
+{% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+{% for year in years %}
+<section class="year">
+  <h2><span>{{ year.name }}</span><span class="chip"><span class="chip-highlight">{{ year.items | size }}</span> {% if year.items.size == 1 %}post{% else %}posts{% endif %}</span></h2>
+  <div class="posts">
+    {% for post in year.items %}
+    <a class="post post-simple" href="{{ post.url | relative_url }}"><div class="post-title">{{ post.title }}</div><time>{{ post.date | date: "%b %-d" }}</time></a>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endif %}

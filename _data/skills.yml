@@ -1,0 +1,48 @@
+- en: Languages & frameworks
+  fr: Langages et frameworks
+  items:
+    - { icon: "☕", name: Java }
+    - { icon: "🌱", name: Spring Boot }
+    - { icon: "🟨", name: JavaScript }
+    - { icon: "🅰️", name: Angular }
+    - { icon: "⚛️", name: React }
+    - { icon: "🐍", name: Python (Django) }
+    - { icon: "🟣", name: .NET }
+    - { icon: "➕", name: C++ }
+- en: Databases
+  fr: Bases de données
+  items:
+    - { icon: "🐘", name: PostgreSQL }
+    - { icon: "🍃", name: MongoDB }
+    - { icon: "🕸️", name: Neo4j }
+    - { icon: "🟥", name: Redis }
+    - { icon: "🔥", name: Firebase }
+    - { icon: "🏛️", name: Oracle Database }
+    - { icon: "🗄️", name: SQL Server }
+- en: Cloud & DevOps
+  fr: Cloud & DevOps
+  items:
+    - { icon: "🐳", name: Docker }
+    - { icon: "☸️", name: Kubernetes (k3s) }
+    - { icon: "⚙️", name: GitHub Actions }
+    - { icon: "🔁", name: CI/CD }
+    - { icon: "☁️", name: Microsoft Azure }
+    - { icon: "🔷", name: Azure DevOps }
+- en: Design & methods
+  fr: Conception et méthodes
+  items:
+    - { icon: "🔌", name: REST APIs }
+    - { icon: "📐", name: UML }
+    - { icon: "🧩", name: MVC }
+    - { icon: "🧱", name: Microservices }
+    - { icon: "🧠", name: Design patterns }
+    - { icon: "🏃", name: Agile (Scrum, Kanban) }
+- en: Tools & testing
+  fr: Outils et tests
+  items:
+    - { icon: "🪶", name: Maven }
+    - { icon: "🌿", name: Git }
+    - { icon: "🐙", name: GitHub }
+    - { icon: "✅", name: JUnit 5 }
+    - { icon: "🍹", name: Mockito }
+    - { icon: "📮", name: Postman }

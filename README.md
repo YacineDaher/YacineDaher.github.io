@@ -11,6 +11,9 @@ Built with Jekyll, which GitHub Pages runs automatically on every push: there is
 | Sidebar, top bar, footer | `_layouts/default.html` |
 | Menu entries | `_data/nav.yml` |
 | Projects (title, year, tags, link) | `_data/projects.yml` |
+| Experience | `_data/experience.yml` |
+| Skills tiles | `_data/skills.yml` |
+| About, Contact, Blog pages | `about.html`, `contact.html`, `blog.html` |
 | Home page | `index.html` |
 | Colours, fonts, spacing | `assets/css/style.css` |
 | Resume, photo, screenshots | `assets/` |

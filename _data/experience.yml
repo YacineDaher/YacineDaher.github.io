@@ -1,0 +1,20 @@
+# One entry per position, newest first, grouped by "year".
+- year: 2026
+  icon: "✈️"
+  title_en: Full-stack developer intern (Java / Spring Boot)
+  title_fr: Stagiaire développeur full stack (Java / Spring Boot)
+  when_en: Jul – Aug 2026 · ONDA, Office National des Aéroports · Casablanca
+  when_fr: Juil. – août 2026 · ONDA, Office National des Aéroports · Casablanca
+  desc_en: "Designed and developed the ResiAIAC platform, from requirements gathering to deployment. Worked in an Agile Scrum team: Git branches, pull requests, integrating contributions and coordinating tasks."
+  desc_fr: "Conception et développement de la plateforme ResiAIAC, du recueil des besoins au déploiement. Travail en équipe en Agile Scrum : branches Git, pull requests, intégration des contributions et coordination des tâches."
+  tags: [spring-boot, angular, postgresql, docker, scrum]
+
+- year: 2025
+  icon: "🌐"
+  title_en: Full-stack developer intern
+  title_fr: Stagiaire développeur full stack
+  when_en: Jul – Aug 2025 · PSB Maroc · Casablanca
+  when_fr: Juil. – août 2025 · PSB Maroc · Casablanca
+  desc_en: Built a web platform where customers discover the company's services, place orders and get in touch.
+  desc_fr: Développement d'une plateforme web où les clients découvrent les services de l'entreprise, passent des commandes et prennent contact.
+  tags: [react, nodejs, mongodb]
